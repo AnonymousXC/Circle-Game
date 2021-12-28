@@ -1,0 +1,213 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scenes/Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Floor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Load_Scripts.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Health.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Canvas.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Green_Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/Control.gd" type="Script" id=8]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+dof_blur_far_distance = 10.62
+dof_blur_far_transition = 1.75
+dof_blur_far_amount = 0.79
+dof_blur_near_distance = 109.23
+dof_blur_near_transition = 8192.0
+dof_blur_near_amount = 1.0
+dof_blur_near_quality = 2
+glow_enabled = true
+glow_intensity = 1.0
+glow_bloom = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_hdr_luminance_cap = 0.3
+adjustment_enabled = true
+adjustment_brightness = 0.91
+adjustment_contrast = 0.65
+adjustment_saturation = 1.1
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.176471, 0, 1, 1 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 1 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="Load_Node" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Ball" parent="Load_Node" instance=ExtResource( 1 )]
+position = Vector2( 392.32, 614.846 )
+
+[node name="Green_Enemy" parent="Load_Node" instance=ExtResource( 7 )]
+position = Vector2( 6515.93, -2953.03 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Canvas"]
+margin_left = 857.142
+margin_top = 28.1892
+margin_right = 949.142
+margin_bottom = 65.1892
+rect_scale = Vector2( 2.5, 2.5 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Canvas/Label"]
+margin_left = -9.51361
+margin_top = 9.51365
+margin_right = 30.4864
+margin_bottom = 23.5137
+text = "Score:"
+
+[node name="Health" type="ProgressBar" parent="Canvas"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -108.5
+margin_top = 25.0
+margin_right = 108.5
+margin_bottom = 73.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+value = 100.0
+percent_visible = false
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Canvas"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Canvas/Control"]
+margin_left = -64.2603
+margin_top = -39.6689
+margin_right = 1214.74
+margin_bottom = 711.331
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Canvas/Control"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 447.79
+margin_top = 486.388
+margin_right = 496.79
+margin_bottom = 500.388
+rect_scale = Vector2( 2.5, 2.5 )
+text = "Loading"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Canvas/Control"]
+margin_left = 378.168
+margin_top = 199.787
+margin_right = 642.168
+margin_bottom = 257.787
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Canvas/Control"]
+margin_left = 381.343
+margin_top = 288.681
+margin_right = 645.343
+margin_bottom = 346.681
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+position = Vector2( -64.0723, -2392.03 )
+scale = Vector2( 0.76, 5 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="Floor2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3031.96, -23330.5 )
+rotation = 1.5708
+scale = Vector2( 0.56, 5 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="Floor3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 21062, 2573.96 )
+rotation = -1.5708
+scale = Vector2( 0.56, 0.92 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="Floor4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 28316.4, -17552 )
+rotation = -3.14159
+scale = Vector2( 0.779224, 1.17051 )
+collision_layer = 5
+collision_mask = 5
+
+[connection signal="pressed" from="Canvas/Control/Button" to="Canvas/Control" method="_on_Button_pressed"]
+[connection signal="pressed" from="Canvas/Control/Button2" to="Canvas/Control" method="_on_Button2_pressed"]
